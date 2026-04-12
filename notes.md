@@ -34,3 +34,5 @@ if the folder structure printing looks weird, its probably this.
 tests should be expanded to: test hidden vs non-hidden. test 1 folder no files. test 1 file in directory. test nothing in root.
 
 ## AlphabeticalFileSorter.java
+sorts files alphabetically ignoring case.
+will be used in wave 6 of truffulaprinter.
