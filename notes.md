@@ -11,6 +11,8 @@ truffulaoptions will be passed to truffulaprinter
 and then we'll print truffula printer.
 
 ## ConsoleColor.java
+handles standard ANSI color codes.
+apply it in a string and it'll apply the color code that its set to.
 
 ## ColorPrinter.java / ColorPrinterTest.java
 
