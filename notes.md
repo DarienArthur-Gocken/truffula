@@ -20,6 +20,10 @@ basically just a handler.
 tests should probably get expanded to: pass in blank statements. verify you can print in the same color twice in a row w/o changing it.
 
 ## TruffulaOptions.java / TruffulaOptionsTest.java
+the actual configs. passed in from app.java.
+primarily a handler to ensure we're passed valid arguments.
+handles the root directory, if hidden files are shown, or if colorprinter actually does color.
+tests should probably get expanded to: make sure all args get set by default. intentionally wrong values for color/hidden files is handled. right values are handled.
 
 ## TruffulaPrinter.java / TruffulaPrinterTest.java
 
