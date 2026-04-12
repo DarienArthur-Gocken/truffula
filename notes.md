@@ -15,6 +15,9 @@ handles standard ANSI color codes.
 apply it in a string and it'll apply the color code that its set to.
 
 ## ColorPrinter.java / ColorPrinterTest.java
+handles properly printing the text out, and handling consolecolor.
+basically just a handler.
+tests should probably get expanded to: pass in blank statements. verify you can print in the same color twice in a row w/o changing it.
 
 ## TruffulaOptions.java / TruffulaOptionsTest.java
 
