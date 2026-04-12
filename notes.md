@@ -4,6 +4,11 @@ As part of Wave 0, please fill out notes for each of the below files. They are i
 PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 
 ## App.java
+our main method / initial starting point.
+will create the truffula options and fill them out based on args passed in.
+has example of args.
+truffulaoptions will be passed to truffulaprinter
+and then we'll print truffula printer.
 
 ## ConsoleColor.java
 
