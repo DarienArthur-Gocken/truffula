@@ -41,4 +41,20 @@ class ColorPrinterTest {
 
     assertEquals(expectedOutput, outputStream.toString());
   }
+
+  @Test
+  void testPrintSameColorTwice() {
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+
+    ColorPrinter printer = new ColorPrinter(printStream);
+    printer.setCurrentColor(ConsoleColor.RED);
+    
+    printer.print("Test", false);
+    printer.print(" Hello", false);
+
+    String expectedOutput = ConsoleColor.RED + "Test" + ConsoleColor.RED + " Hello";
+
+    assertEquals(expectedOutput, outputStream.toString());
+  }
 }
