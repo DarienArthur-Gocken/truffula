@@ -37,9 +37,37 @@ public class TruffulaOptionsTest {
     // Act: Create TruffulaOptions instance
     TruffulaOptions options = new TruffulaOptions(args);
 
-    // Assert: Check that the root directory is set correctly
+    // Assert: Check that the defaults and directory are set correctly.
     assertEquals(directory.getAbsolutePath(), options.getRoot().getAbsolutePath());
     assertFalse(options.isShowHidden());
     assertTrue(options.isUseColor());
+  }
+
+  @Test
+  void testHiddenFlag(@TempDir File tempDir) throws FileNotFoundException {
+    // Arrange: Prepare the arguments with the temp directory
+    File directory = new File(tempDir, "subfolder");
+    directory.mkdir();
+    String[] args = {"-h", directory.getAbsolutePath()};
+
+    // Act: Create TruffulaOptions instance
+    TruffulaOptions options = new TruffulaOptions(args);
+
+    // Assert: Check that hidden files is true.
+    assertTrue(options.isShowHidden());
+  }
+
+  @Test
+  void testNoColorFlag(@TempDir File tempDir) throws FileNotFoundException {
+    // Arrange: Prepare the arguments with the temp directory
+    File directory = new File(tempDir, "subfolder");
+    directory.mkdir();
+    String[] args = {"-nc", directory.getAbsolutePath()};
+
+    // Act: Create TruffulaOptions instance
+    TruffulaOptions options = new TruffulaOptions(args);
+
+    // Assert: Check that hidden files is true.
+    assertFalse(options.isUseColor());
   }
 }
