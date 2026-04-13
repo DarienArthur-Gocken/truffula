@@ -200,7 +200,7 @@ public class TruffulaPrinterTest {
     }
 
     @Test
-    public void testSingleFolderNoFiles(@TempDir File tempDir) {
+    public void testSingleFolderNoFiles(@TempDir File tempDir) throws IOException {
         File root = new File(tempDir, "root");
         root.mkdir();
 
@@ -219,5 +219,26 @@ public class TruffulaPrinterTest {
 
         assertTrue(output.contains("root/"));
         assertTrue(output.contains("emptyFolder/"));
+    }
+
+    @Test
+    public void testSingleFile(@TempDir File tempDir) throws IOException {
+        File root = new File(tempDir, "root");
+        root.mkdir();
+
+        File file = new File(root, "file.txt");
+        file.createNewFile();
+
+        TruffulaOptions options = new TruffulaOptions(root, true, true);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+
+        TruffulaPrinter printer = new TruffulaPrinter(options, ps);
+
+        printer.printTree();
+        String output = baos.toString();
+
+        assertTrue(output.contains("file.txt"));
     }
 }
