@@ -106,23 +106,30 @@ public class TruffulaOptions  {
     }
 
     //defaults
-    root = null;
-    showHidden = false;
-    useColor = true;
+    File rootFolder = null;
+    boolean showHiddenFiles = false;
+    boolean useColoredText = true;
 
+    rootFolder = new File(args[args.length-1]);
+    for(int i = 0; i < args.length-1; i++) {
+      String arg = args[i];
 
-
-    if(root == null) {
-      throw new IllegalArgumentException("Path arg is required.");
+      if(arg ==  "-h") {
+        showHiddenFiles = true;
+      } else if(arg == "-nc") {
+        useColoredText = false;
+      } else {
+        throw new IllegalArgumentException("Unknown arguments provided.");
+      }
     }
 
-    if(!root.exists()) {
-      throw new FileNotFoundException("Path does not exist.");
-    }
+    if(!rootFolder.exists()) throw new FileNotFoundException("Path does not exist.");
+    if(!rootFolder.isDirectory()) throw new FileNotFoundException("Path is not a directory.");
 
-    if(!root.isDirectory()) {
-      throw new FileNotFoundException("Path is not a directory.");
-    }
+    this.root = rootFolder;
+    this.showHidden = showHiddenFiles;
+    this.useColor = useColoredText;
+
 
   }
 
