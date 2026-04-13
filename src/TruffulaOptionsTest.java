@@ -84,4 +84,14 @@ public class TruffulaOptionsTest {
       new TruffulaOptions(args);
     });
   }
+
+  @Test
+  void testMissingPath() {
+    String[] args = {"-h"};
+
+    // Act  & Assert: Check that a missing path throws
+    assertThrows(IllegalArgumentException.class, () -> {
+      new TruffulaOptions(args);
+    });
+  }
 }

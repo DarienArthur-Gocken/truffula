@@ -102,13 +102,18 @@ public class TruffulaOptions  {
    */
   public TruffulaOptions(String[] args) throws IllegalArgumentException, FileNotFoundException {
     if(args == null || args.length == 0) throw new IllegalArgumentException("Path arg is required.");
+  
+    String lastArg = args[args.length-1];
+    if(lastArg.equals("-h") || lastArg.equals("-nc")) {
+      throw new IllegalArgumentException("Path arg is required.");
+    }
 
     //defaults
-    File rootFolder = null;
+    File rootFolder = new File(lastArg);
     boolean showHiddenFiles = false;
     boolean useColoredText = true;
 
-    rootFolder = new File(args[args.length-1]);
+
     for(int i = 0; i < args.length-1; i++) {
       String arg = args[i];
 
