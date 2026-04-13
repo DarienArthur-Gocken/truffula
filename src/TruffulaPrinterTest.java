@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TruffulaPrinterTest {
@@ -148,5 +149,53 @@ public class TruffulaPrinterTest {
 
         // Assert that the output matches the expected output exactly
         assertEquals(expected.toString(), output);
+    }
+
+    @Test
+    public void testHiddenFilesNotVisible(@TempDir File tempDir) throws IOException {
+        File root = new File(tempDir, "root");
+        root.mkdir();
+
+        File visible = new File(root, "visible.txt");
+        visible.createNewFile();
+
+        createHiddenFile(root, ".notVisible.txt");
+
+        TruffulaOptions options = new TruffulaOptions(root, false, true);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream);
+
+        printer.printTree();
+        String output = baos.toString();
+
+        assertTrue(output.contains("visible.txt"));
+        assertFalse(output.contains(".notVisible.txt"));
+    }
+
+    @Test
+    public void testHiddenFilesVisible(@TempDir File tempDir) throws IOException {
+        File root = new File(tempDir, "root");
+        root.mkdir();
+
+        File visible = new File(root, "visible.txt");
+        visible.createNewFile();
+
+        createHiddenFile(root, ".notVisible.txt");
+
+        TruffulaOptions options = new TruffulaOptions(root, true, true);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream);
+
+        printer.printTree();
+        String output = baos.toString();
+
+        assertTrue(output.contains("visible.txt"));
+        assertTrue(output.contains(".notVisible.txt"));
     }
 }
