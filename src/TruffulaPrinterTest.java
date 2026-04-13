@@ -198,4 +198,26 @@ public class TruffulaPrinterTest {
         assertTrue(output.contains("visible.txt"));
         assertTrue(output.contains(".notVisible.txt"));
     }
+
+    @Test
+    public void testSingleFolderNoFiles(@TempDir File tempDir) {
+        File root = new File(tempDir, "root");
+        root.mkdir();
+
+        File folder = new File(root, "emptyFolder");
+        folder.mkdir();
+
+        TruffulaOptions options = new TruffulaOptions(root, true, true);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+
+        TruffulaPrinter printer = new TruffulaPrinter(options, ps);
+
+        printer.printTree();
+        String output = baos.toString();
+
+        assertTrue(output.contains("root/"));
+        assertTrue(output.contains("emptyFolder/"));
+    }
 }
