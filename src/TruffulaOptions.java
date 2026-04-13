@@ -117,9 +117,9 @@ public class TruffulaOptions  {
     for(int i = 0; i < args.length-1; i++) {
       String arg = args[i];
 
-      if(arg ==  "-h") {
+      if(arg.equals("-h")) {
         showHiddenFiles = true;
-      } else if(arg == "-nc") {
+      } else if(arg.equals("-nc")) {
         useColoredText = false;
       } else {
         throw new IllegalArgumentException("Unknown arguments provided.");
