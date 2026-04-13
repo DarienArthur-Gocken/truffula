@@ -89,8 +89,18 @@ public class TruffulaOptionsTest {
   void testMissingPath() {
     String[] args = {"-h"};
 
-    // Act  & Assert: Check that a missing path throws
+    // Act  & Assert: Check that a missing path throws illegalarg.
     assertThrows(IllegalArgumentException.class, () -> {
+      new TruffulaOptions(args);
+    });
+  }
+
+  @Test
+  void testNonExistentPath() {
+    String[] args = {"/test/here"};
+
+    // Act  & Assert: Check that a path that doesnt exist throws filenotfound
+    assertThrows(FileNotFoundException.class, () -> {
       new TruffulaOptions(args);
     });
   }
