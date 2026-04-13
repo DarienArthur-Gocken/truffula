@@ -241,4 +241,22 @@ public class TruffulaPrinterTest {
 
         assertTrue(output.contains("file.txt"));
     }
+
+    @Test
+    public void testEmptyRoot(@TempDir File tempDir) {
+        File root = new File(tempDir, "root");
+        root.mkdir();
+
+        TruffulaOptions options = new TruffulaOptions(root, true, true);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+
+        TruffulaPrinter printer = new TruffulaPrinter(options, ps);
+
+        printer.printTree();
+        String output = baos.toString();
+
+        assertTrue(output.contains("root/"));
+    }
 }
