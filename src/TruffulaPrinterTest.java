@@ -368,4 +368,29 @@ public class TruffulaPrinterTest {
         assertTrue(output.contains("file.txt"));
         assertTrue(output.contains(ConsoleColor.RESET.toString()));
     }
+
+    @Test
+    public void testNoColor(@TempDir File tempDir) throws IOException {
+        File root = new File(tempDir, "root");
+        root.mkdir();
+
+        File file = new File(root, "file.txt");
+        file.createNewFile();
+
+        TruffulaOptions options = new TruffulaOptions(root, true, false);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+
+        TruffulaPrinter printer = new TruffulaPrinter(options, ps);
+        printer.printTree();
+
+        String output = baos.toString();
+
+        assertTrue(output.contains("root/"));
+        assertTrue(output.contains("file.txt"));
+        assertFalse(options.isUseColor());
+        assertFalse(output.contains(ConsoleColor.PURPLE.toString()));
+        assertFalse(output.contains(ConsoleColor.RESET.toString()));
+    }
 }
