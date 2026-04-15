@@ -113,6 +113,8 @@ public class TruffulaPrinter {
       return;
     }
 
+    out.setCurrentColor(colorSequence.get(depth % colorSequence.size()));
+
     String indentation = "";
     for(int i = 0; i < depth; i++) {
         indentation +="   ";
