@@ -343,4 +343,29 @@ public class TruffulaPrinterTest {
         // Assert that the output matches the expected output exactly
         assertEquals(expected.toString(), output);
     }
+
+    @Test
+    public void testColor(@TempDir File tempDir) throws IOException {
+        File root = new File("colorRoot");
+        root.mkdir();
+
+        File child = new File(root, "file.txt");
+        child.createNewFile();
+
+        TruffulaOptions options = new TruffulaOptions(root, true, true);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream);
+
+        printer.printTree();
+
+        String output = baos.toString();
+
+        assertTrue(output.contains("\u001B"));
+        assertTrue(output.contains("colorRoot/"));
+        assertTrue(output.contains("file.txt"));
+        assertTrue(output.contains(ConsoleColor.RESET.toString()));
+    }
 }
