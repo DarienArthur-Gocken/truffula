@@ -113,7 +113,9 @@ public class TruffulaPrinter {
       return;
     }
 
-    out.setCurrentColor(colorSequence.get(depth % colorSequence.size()));
+    if(options.isUseColor()) {
+      out.setCurrentColor(colorSequence.get(depth % colorSequence.size()));
+    }
 
     String indentation = "";
     for(int i = 0; i < depth; i++) {
@@ -127,7 +129,7 @@ public class TruffulaPrinter {
       printMessage+="/";
     }
 
-    out.println(printMessage);
+    out.println(printMessage, options.isUseColor());
 
     if(isDirectory) {
       File[] children = file.listFiles();
