@@ -105,9 +105,14 @@ public class TruffulaPrinter {
    */
   public void printTree() {
     printTree(options.getRoot(), 0);
-  }
+  } 
 
   private void printTree(File file, int depth) {
+
+    if(!options.isShowHidden() && file.isHidden()) {
+      return;
+    }
+
     String indentation = "";
     for(int i = 0; i < depth; i++) {
         indentation +="   ";
